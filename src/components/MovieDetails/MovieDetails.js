@@ -64,7 +64,7 @@ const MovieDescription = () => {
             <h3>Overview</h3>
             <p>{film.overview}</p>
             <h4>Genres</h4>
-            <p>////</p>
+            <p>GenresList</p>
           </div>
         </div>
       )}
