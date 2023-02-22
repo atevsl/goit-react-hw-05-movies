@@ -1,6 +1,7 @@
 import { onFetch } from 'services/API';
 import { useEffect, useState } from 'react';
 import { Link, generatePath } from 'react-router-dom';
+import css from './Trend.module.css';
 const Trend = () => {
   const [films, setfilms] = useState([]);
   useEffect(() => {
@@ -21,12 +22,15 @@ const Trend = () => {
 
   return (
     <>
-      <h2>Trending today:</h2>
+      <h2 className={css.title}>Trending today:</h2>
       <ul>
         {films.map(film => {
           return (
             <li key={film.id}>
-              <Link to={generatePath('/movies/:movieId', { movieId: film.id })}>
+              <Link
+                to={generatePath('/movies/:movieId', { movieId: film.id })}
+                className={css.listItem}
+              >
                 {film.title}
               </Link>
             </li>

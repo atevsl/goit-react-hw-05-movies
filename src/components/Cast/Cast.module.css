@@ -1,0 +1,7 @@
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  list-style: none;
+  color: #525a69;
+}

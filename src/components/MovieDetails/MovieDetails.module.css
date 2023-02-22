@@ -1,14 +1,23 @@
-.nav {
+.card {
+  display: flex;
+  gap: 20px;
+  margin: 5px;
+}
+.info {
+  color: #525a69;
+}
+
+.links {
   background-image: linear-gradient(90deg, #525a69, #898dda);
-  padding: 20px 30px;
+  padding: 10px 20px;
   text-decoration: none;
   color: #fff;
   text-align: center;
   display: inline-block;
-  border-radius: 20px;
+  border-radius: 10px;
   margin: 5px;
 }
-.nav:hover {
+.links:hover {
   color: #525a69;
   background-image: linear-gradient(90deg, #7b81ec, #3bd1d3);
 }
