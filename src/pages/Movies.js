@@ -12,9 +12,9 @@ const Movies = () => {
   const [searchMovies, setSearchMovies] = useState(null);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   // const query = searchParams.get('query');
-
+  console.log(searchParams);
   const onInputHendler = e => {
     setSearch(e.currentTarget.value);
   };

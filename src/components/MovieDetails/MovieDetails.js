@@ -11,11 +11,13 @@ import css from './MovieDetails.module.css';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
-  const [_, setGenresList] = useState(null);
+  const [genresList, setGenresList] = useState(null);
   const location = useLocation();
   // const [genres, setGenres] = useState('');
 
   const { movieId } = useParams();
+  console.log(genresList);
+
   useEffect(() => {
     onFetchGenresList().then(({ data }) => {
       return setGenresList(data);
