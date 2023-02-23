@@ -1,5 +1,7 @@
 import Nav from 'components/Nav/Nav';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import Spiner from 'components/Spiner/Spiner';
 import css from './SharedLayout.module.css';
 
 export const SharedLayout = () => {
@@ -8,7 +10,9 @@ export const SharedLayout = () => {
       <header>
         <Nav />
       </header>
-      <Outlet />
+      <Suspense fallback={<Spiner />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
