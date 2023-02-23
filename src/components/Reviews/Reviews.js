@@ -12,16 +12,20 @@ const Reviews = () => {
     });
   }, [movieId]);
   return (
-    <ul className={css.reviewList}>
-      {reviews.map(item => {
-        return (
-          <li key={item.id}>
-            <b>Author: {item.author}</b>
-            <p>{item.content}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {' '}
+      {reviews.length === 0 && <div>Sorry, there are no reviews yet.</div>}
+      <ul className={css.reviewList}>
+        {reviews.map(item => {
+          return (
+            <li key={item.id}>
+              <b>Author: {item.author}</b>
+              <p>{item.content}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 export default Reviews;

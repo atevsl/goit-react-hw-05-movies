@@ -1,9 +1,12 @@
 import { onFetch } from 'services/API';
 import { useEffect, useState } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath, useLocation } from 'react-router-dom';
+
 import css from './Trend.module.css';
+import Spiner from 'components/Spiner/Spiner';
 const Trend = () => {
-  const [films, setfilms] = useState([]);
+  const location = useLocation();
+  const [films, setfilms] = useState(null);
   useEffect(() => {
     onFetch()
       .then(({ data }) => {
@@ -11,7 +14,6 @@ const Trend = () => {
           console.log('нема відпоівіді');
           return;
         }
-        console.log('set top films');
 
         setfilms(data.results);
       })
@@ -22,21 +24,27 @@ const Trend = () => {
 
   return (
     <>
-      <h2 className={css.title}>Trending today:</h2>
-      <ul>
-        {films.map(film => {
-          return (
-            <li key={film.id}>
-              <Link
-                to={generatePath('/movies/:movieId', { movieId: film.id })}
-                className={css.listItem}
-              >
-                {film.title}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      {!films && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
+      {films && (
+        <>
+          <h2 className={css.title}>Trending today:</h2>
+          <ul>
+            {films.map(film => {
+              return (
+                <li key={film.id}>
+                  <Link
+                    to={generatePath('/movies/:movieId', { movieId: film.id })}
+                    state={{ from: location }}
+                    className={css.listItem}
+                  >
+                    {film.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </>
   );
 };

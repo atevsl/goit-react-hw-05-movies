@@ -1,12 +1,18 @@
-import Nav from 'components/Nav/Nav';
 import { useEffect, useState } from 'react';
 import { onFetchFilm, onFetchGenresList } from 'services/API';
-import { Outlet, useParams, Link, generatePath } from 'react-router-dom';
+import {
+  Outlet,
+  useParams,
+  Link,
+  generatePath,
+  useLocation,
+} from 'react-router-dom';
 import css from './MovieDetails.module.css';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
   const [genresList, setGenresList] = useState(null);
+  const location = useLocation();
   // const [genres, setGenres] = useState('');
 
   const { movieId } = useParams();
@@ -40,11 +46,11 @@ const MovieDescription = () => {
     // });
   }, [movieId]);
 
-  if (!film || !genresList) return;
-
   return (
     <>
-      <Nav />
+      <Link to={location.state.from} className={css.links}>
+        Go back
+      </Link>
       {film && (
         <div className={css.card}>
           <img

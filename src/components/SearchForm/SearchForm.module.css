@@ -19,14 +19,3 @@
 .searchInput:hover {
   border: 2px solid #7b81ec;
 }
-.listItem {
-  text-decoration: none;
-  color: #525a69;
-  padding: 4px;
-  display: inline-block;
-}
-.listItem:hover {
-  color: #fff;
-  background-image: linear-gradient(90deg, #7b81ec, #3bd1d3);
-  border-radius: 5px;
-}
