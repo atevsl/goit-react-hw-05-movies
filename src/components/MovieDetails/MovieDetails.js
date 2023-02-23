@@ -48,7 +48,10 @@ const MovieDescription = () => {
 
   return (
     <>
-      <Link to={location.state.from} className={css.links}>
+      <Link
+        to={location.state ? location.state.from.pathname : '/'}
+        className={css.links}
+      >
         Go back
       </Link>
       {film && (
@@ -71,22 +74,23 @@ const MovieDescription = () => {
             <p>{film.overview}</p>
             <h4>Genres</h4>
             <p>GenresList</p>
+            <Link
+              to={generatePath('/movies/:movieId/cast', { movieId })}
+              className={css.links}
+              replace={true}
+            >
+              Cast
+            </Link>
+            <Link
+              to={generatePath('/movies/:movieId/reviews', { movieId })}
+              className={css.links}
+              replace={true}
+            >
+              Reviews
+            </Link>
           </div>
         </div>
       )}
-
-      <Link
-        to={generatePath('/movies/:movieId/cast', { movieId })}
-        className={css.links}
-      >
-        Cast
-      </Link>
-      <Link
-        to={generatePath('/movies/:movieId/reviews', { movieId })}
-        className={css.links}
-      >
-        Reviews
-      </Link>
 
       <Outlet />
     </>

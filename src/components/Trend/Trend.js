@@ -11,7 +11,6 @@ const Trend = () => {
     onFetch()
       .then(({ data }) => {
         if (data.results === 0) {
-          console.log('нема відпоівіді');
           return;
         }
 
@@ -28,16 +27,25 @@ const Trend = () => {
       {films && (
         <>
           <h2 className={css.title}>Trending today:</h2>
-          <ul>
+          <ul className={css.list}>
             {films.map(film => {
               return (
-                <li key={film.id}>
+                <li key={film.id} className={css.listItem}>
                   <Link
                     to={generatePath('/movies/:movieId', { movieId: film.id })}
                     state={{ from: location }}
-                    className={css.listItem}
+                    className={css.listLink}
                   >
-                    {film.title}
+                    <img
+                      src={
+                        film.poster_path
+                          ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${film.poster_path}`
+                          : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'
+                      }
+                      alt="movie poster"
+                      width="200px"
+                    ></img>
+                    <p>{film.title}</p>
                   </Link>
                 </li>
               );

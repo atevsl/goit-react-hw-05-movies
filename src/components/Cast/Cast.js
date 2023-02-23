@@ -9,7 +9,6 @@ const Cast = () => {
   useEffect(() => {
     onFetchCast(movieId).then(({ data }) => {
       setCast(data.cast);
-      console.log(data.cast);
     });
   }, [movieId]);
 

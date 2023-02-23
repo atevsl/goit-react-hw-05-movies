@@ -13,7 +13,7 @@ const Movies = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query');
+  // const query = searchParams.get('query');
 
   const onInputHendler = e => {
     setSearch(e.currentTarget.value);
@@ -25,7 +25,6 @@ const Movies = () => {
     if (search.trim() === '') {
       setSearchMovies([]);
       setLoading(false);
-
       return Notiflix.Notify.failure('Please type search and try again.');
     }
     onFetchSearch(search).then(({ data }) => {
@@ -36,10 +35,10 @@ const Movies = () => {
           'Sorry, we cant find such movie. Please type search and try again.'
         );
       }
+      setSearchParams({ query: search });
       setSearchMovies(data.results);
       setLoading(false);
     });
-    console.log('location' + location.pathname);
     setSearch('');
   };
   return (
@@ -47,22 +46,32 @@ const Movies = () => {
       <SearchForm
         onInputHendler={onInputHendler}
         onSubmitHendler={onSubmitHendler}
-        search={query}
+        search={search}
       />
       {loading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
-      <ul>
+      <ul className={css.list}>
         {searchMovies &&
           searchMovies.map(item => {
             return (
-              <li key={item.id}>
+              <li key={item.id} className={css.listItem}>
                 <Link
-                  to={generatePath('/movies/:movieId/cast', {
+                  to={generatePath('/movies/:movieId', {
                     movieId: item.id,
                   })}
                   state={{ from: location }}
-                  className={css.listItem}
+                  className={css.listLink}
                 >
-                  {item.title}
+                  {' '}
+                  <img
+                    src={
+                      item.poster_path
+                        ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${item.poster_path}`
+                        : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'
+                    }
+                    alt="movie poster"
+                    width="200px"
+                  ></img>
+                  <p>{item.title}</p>
                 </Link>
               </li>
             );

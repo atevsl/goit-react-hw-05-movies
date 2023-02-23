@@ -7,6 +7,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url(https://kartinkin.net/pics/uploads/posts/2022-08/1660722963_10-kartinkin-net-p-fon-dlya-prezentatsii-film-krasivo-10.jpg); */
+  /* background-image: url(https://kartinkin.net/pics/uploads/posts/2022-08/thumbs/1660723042_51-kartinkin-net-p-fon-dlya-prezentatsii-film-krasivo-55.jpg); */
+
+  background-image: url(https://kartinkin.net/pics/uploads/posts/2022-08/1660722931_1-kartinkin-net-p-fon-dlya-prezentatsii-film-krasivo-1.jpg);
 }
 
 code {
