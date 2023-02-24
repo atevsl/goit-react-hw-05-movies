@@ -1,18 +1,12 @@
 import { useEffect, useState } from 'react';
 import { onFetchFilm } from 'services/API';
-import {
-  Outlet,
-  useParams,
-  Link,
-  generatePath,
-  useLocation,
-} from 'react-router-dom';
+import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
   const location = useLocation();
-
+  const goBack = location.state?.from ?? '/';
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -33,10 +27,7 @@ const MovieDescription = () => {
     : '';
   return (
     <>
-      <Link
-        to={location.state ? location.state.from : '/'}
-        className={css.links}
-      >
+      <Link to={goBack} className={css.links}>
         Go back
       </Link>
       {film && (
@@ -59,18 +50,10 @@ const MovieDescription = () => {
             <p>{film.overview}</p>
             <h4>Genres</h4>
             <p>{genresNames}</p>
-            <Link
-              to={generatePath('/movies/:movieId/cast', { movieId })}
-              className={css.links}
-              replace={true}
-            >
+            <Link to="cast" className={css.links} state={{ from: goBack }}>
               Cast
             </Link>
-            <Link
-              to={generatePath('/movies/:movieId/reviews', { movieId })}
-              className={css.links}
-              replace={true}
-            >
+            <Link to="reviews" className={css.links} state={{ from: goBack }}>
               Reviews
             </Link>
           </div>

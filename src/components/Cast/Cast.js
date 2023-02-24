@@ -18,7 +18,7 @@ const Cast = () => {
       <ul className={css.castList}>
         {cast.map(item => {
           return (
-            <li key={item.id} className={css.castItem}>
+            <li key={item.cast_id} className={css.castItem}>
               <img
                 src={
                   item.profile_path
