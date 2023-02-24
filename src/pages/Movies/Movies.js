@@ -4,7 +4,6 @@ import { onFetchSearch } from 'services/API';
 import { useEffect, useState } from 'react';
 import Spiner from 'components/Spiner/Spiner';
 import Notiflix from 'notiflix';
-import css from './Movies.module.css';
 import MovieList from 'components/MovieList/MovieList';
 
 const Movies = () => {
@@ -42,9 +41,7 @@ const Movies = () => {
     <>
       <SearchForm onSubmitHendler={onSubmitHendler} />
       {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
-
       {searchMovies && <MovieList moviesList={searchMovies} />}
-
       <Outlet />
     </>
   );
