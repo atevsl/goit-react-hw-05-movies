@@ -4,6 +4,7 @@ import { Link, generatePath, useLocation } from 'react-router-dom';
 
 import css from './Trend.module.css';
 import Spiner from 'components/Spiner/Spiner';
+import MovieCard from 'components/MovieCard/MovieCard';
 const Trend = () => {
   const location = useLocation();
   const [films, setfilms] = useState(null);
@@ -28,7 +29,8 @@ const Trend = () => {
         <>
           <h2 className={css.title}>Trending today:</h2>
           <ul className={css.list}>
-            {films.map(film => {
+            {films && <MovieCard moviesList={films} location={location} />}
+            {/* {films.map(film => {
               return (
                 <li key={film.id} className={css.listItem}>
                   <Link
@@ -49,7 +51,7 @@ const Trend = () => {
                   </Link>
                 </li>
               );
-            })}
+            })} */}
           </ul>
         </>
       )}

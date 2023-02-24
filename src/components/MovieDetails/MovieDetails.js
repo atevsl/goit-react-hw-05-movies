@@ -16,7 +16,6 @@ const MovieDescription = () => {
   // const [genres, setGenres] = useState('');
 
   const { movieId } = useParams();
-  console.log(genresList);
 
   useEffect(() => {
     onFetchGenresList().then(({ data }) => {
