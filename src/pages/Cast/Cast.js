@@ -4,6 +4,7 @@ import { onFetchCast } from 'services/API';
 import css from './Cast.module.css';
 import noImg from '../../img/noImg.jpg';
 import Spiner from 'components/Spiner/Spiner';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -32,6 +33,7 @@ const Cast = () => {
   return (
     <>
       {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
+      {error && <PageNotFound />}
       {cast.length === 0 && <b>Sorry we couldn't find the cast</b>}
       <ul className={css.castList}>
         {cast.map(item => {

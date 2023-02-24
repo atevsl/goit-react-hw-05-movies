@@ -4,6 +4,7 @@ import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
 import noImg from '../../img/noImg.jpg';
 import Spiner from 'components/Spiner/Spiner';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
@@ -37,6 +38,8 @@ const MovieDescription = () => {
 
   return (
     <>
+      {error && <PageNotFound />}
+
       <Link to={goBack} className={css.links}>
         Go back
       </Link>
