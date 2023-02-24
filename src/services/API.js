@@ -17,12 +17,6 @@ async function onFetchFilm(id) {
   );
 }
 
-async function onFetchGenresList() {
-  return await axios.get(
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=${APIkey}&language=en-US`
-  );
-}
-
 async function onFetchCast(id) {
   return await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIkey}`
@@ -35,11 +29,4 @@ async function onFetchReviews(id) {
   );
 }
 
-export {
-  onFetch,
-  onFetchFilm,
-  onFetchGenresList,
-  onFetchCast,
-  onFetchReviews,
-  onFetchSearch,
-};
+export { onFetch, onFetchFilm, onFetchCast, onFetchReviews, onFetchSearch };

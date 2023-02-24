@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { onFetchFilm, onFetchGenresList } from 'services/API';
+import { onFetchFilm } from 'services/API';
 import {
   Outlet,
   useParams,
@@ -11,17 +11,11 @@ import css from './MovieDetails.module.css';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
-  const [genresList, setGenresList] = useState(null);
   const location = useLocation();
-  // const [genres, setGenres] = useState('');
 
   const { movieId } = useParams();
 
   useEffect(() => {
-    onFetchGenresList().then(({ data }) => {
-      return setGenresList(data);
-    });
-
     onFetchFilm(movieId)
       .then(({ data }) => {
         if (data.results === 0) {
@@ -33,24 +27,14 @@ const MovieDescription = () => {
       .catch(error => {
         console.log(error);
       });
-
-    // genresList.forEach(({ name, id }) => {
-    //   if (film.genre_ids.includes(id)) {
-    //     console.log('includes such genre');
-    //     // setGenres(name);
-    //     // if (genre_ids.length > 2) {
-    //     //   genre_ids.splice(2, genre_ids.length - 1, 'Other');
-    //     // }
-    //     film.genre_ids.splice(film.genre_ids.indexOf(id), 1, name);
-    //   }
-    //   setGenres(film.genre_ids.join(', '));
-    // });
   }, [movieId]);
-
+  const genresNames = film
+    ? film.genres.map(genre => genre.name).join(', ')
+    : '';
   return (
     <>
       <Link
-        to={location.state ? location.state.from.pathname : '/'}
+        to={location.state ? location.state.from : '/'}
         className={css.links}
       >
         Go back
@@ -74,7 +58,7 @@ const MovieDescription = () => {
             <h3>Overview</h3>
             <p>{film.overview}</p>
             <h4>Genres</h4>
-            <p>GenresList</p>
+            <p>{genresNames}</p>
             <Link
               to={generatePath('/movies/:movieId/cast', { movieId })}
               className={css.links}

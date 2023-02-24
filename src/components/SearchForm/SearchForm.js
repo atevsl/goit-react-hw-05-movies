@@ -1,16 +1,16 @@
 import css from './SearchForm.module.css';
 
-const SearchForm = ({ onInputHendler, onSubmitHendler, search }) => {
+const SearchForm = ({ onSubmitHendler }) => {
   return (
     <>
-      <form onSubmit={onSubmitHendler}>
-        <input
-          value={search || ''}
-          type="text"
-          name="search"
-          onChange={onInputHendler}
-          className={css.searchInput}
-        />
+      <form
+        name="form"
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmitHendler(document.forms.form.elements.search.value);
+        }}
+      >
+        <input type="text" name="search" className={css.searchInput} />
         <button type="submit" className={css.searchBtn}>
           Search
         </button>

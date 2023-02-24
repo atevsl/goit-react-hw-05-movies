@@ -1,27 +1,21 @@
 import SearchForm from 'components/SearchForm/SearchForm';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { onFetchSearch } from 'services/API';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Spiner from 'components/Spiner/Spiner';
 import Notiflix from 'notiflix';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import css from './Movies.module.css';
 import MovieCard from 'components/MovieCard/MovieCard';
 
 const Movies = () => {
-  const [search, setSearch] = useState('');
   const [searchMovies, setSearchMovies] = useState(null);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  // const query = searchParams.get('query');
-
-  const onInputHendler = e => {
-    setSearch(e.currentTarget.value);
-  };
-
-  const onSubmitHendler = e => {
-    e.preventDefault();
+  const query = searchParams.get('query');
+  const onSubmitHendler = search => {
+    console.log('onSubmitHendler: ' + search);
     setLoading(true);
     if (search.trim() === '') {
       setSearchMovies([]);
@@ -40,15 +34,13 @@ const Movies = () => {
       setSearchMovies(data.results);
       setLoading(false);
     });
-    setSearch('');
   };
+  // useEffect(() => {
+  //   onSubmitHendler(query);
+  // }, [query]);
   return (
     <>
-      <SearchForm
-        onInputHendler={onInputHendler}
-        onSubmitHendler={onSubmitHendler}
-        search={search}
-      />
+      <SearchForm onSubmitHendler={onSubmitHendler} />
       {loading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
       <ul className={css.list}>
         {searchMovies && (
