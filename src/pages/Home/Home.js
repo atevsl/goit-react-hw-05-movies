@@ -14,7 +14,6 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const data = await onFetch();
-        console.log(data);
         if (data === 0) {
           return;
         }

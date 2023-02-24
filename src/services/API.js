@@ -8,26 +8,33 @@ async function onFetch() {
   return resp.data.results;
 }
 async function onFetchSearch(search) {
-  return await axios.get(
+  const resp = await axios.get(
     `https://api.themoviedb.org/3/search/movie?api_key=${APIkey}&query=${search}`
   );
+
+  if (resp.status !== 200 || resp.data.total_results === 0) {
+    throw new Error();
+  } else return resp.data.results;
 }
 async function onFetchFilm(id) {
-  return await axios.get(
+  const resp = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${APIkey}`
   );
+  return resp.data;
 }
 
 async function onFetchCast(id) {
-  return await axios.get(
+  const resp = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIkey}`
   );
+  return resp.data.cast;
 }
 
 async function onFetchReviews(id) {
-  return await axios.get(
+  const resp = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${APIkey}`
   );
+  return resp.data.results;
 }
 
 export { onFetch, onFetchFilm, onFetchCast, onFetchReviews, onFetchSearch };

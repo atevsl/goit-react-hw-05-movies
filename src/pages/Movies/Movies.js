@@ -9,10 +9,10 @@ import MovieList from 'components/MovieList/MovieList';
 
 const Movies = () => {
   const [searchMovies, setSearchMovies] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('search') ?? '';
+
   const onSubmitHendler = search => {
     if (search.trim() === '') {
       return Notiflix.Notify.failure('Please type search and try again.');
@@ -21,25 +21,27 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    onFetchSearch(query).then(({ data }) => {
-      if (data.total_results === 0) {
-        setSearchMovies([]);
-        setLoading(false);
-        return Notiflix.Notify.failure(
-          'Sorry, we cant find such movie. Please type search and try again.'
+    if (!query) return;
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const data = await onFetchSearch(query);
+        setSearchMovies(data);
+      } catch (error) {
+        Notiflix.Notify.failure(
+          'Sorry, we did not find this movie. Please repeat the search'
         );
+      } finally {
+        setIsLoading(false);
       }
-
-      setSearchMovies(data.results);
-      setLoading(false);
-    });
+    };
+    fetchData();
   }, [query]);
 
   return (
     <>
       <SearchForm onSubmitHendler={onSubmitHendler} />
-      {loading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
+      {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
       <ul className={css.list}>
         {searchMovies && <MovieList moviesList={searchMovies} />}
       </ul>

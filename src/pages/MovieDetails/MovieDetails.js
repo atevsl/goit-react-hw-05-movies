@@ -2,45 +2,57 @@ import { useEffect, useState } from 'react';
 import { onFetchFilm } from 'services/API';
 import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import css from './MovieDetails.module.css';
+import noImg from '../../img/noImg.jpg';
+import Spiner from 'components/Spiner/Spiner';
 
 const MovieDescription = () => {
   const [film, setFilm] = useState(null);
   const location = useLocation();
   const goBack = location.state?.from ?? '/';
   const { movieId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    onFetchFilm(movieId)
-      .then(({ data }) => {
-        if (data.results === 0) {
-          console.log('нема відпоівіді');
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const data = await onFetchFilm(movieId);
+        if (data === 0) {
           return;
         }
-        return setFilm(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+        setFilm(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
   }, [movieId]);
+
   const genresNames = film
     ? film.genres.map(genre => genre.name).join(', ')
     : '';
+
   return (
     <>
       <Link to={goBack} className={css.links}>
         Go back
       </Link>
+      {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
       {film && (
         <div className={css.card}>
-          <img
-            src={
-              film.poster_path
-                ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${film.poster_path}`
-                : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019'
-            }
-            alt="movie poster"
-            width="300px"
-          ></img>
+          {film.poster_path && (
+            <img
+              src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${film.poster_path}`}
+              alt={film.title}
+              width="400px"
+            />
+          )}
+          {!film.poster_path && (
+            <img src={noImg} alt={film.title} width="400px" />
+          )}
           <div className={css.info}>
             <h2>
               {film.title} ( {film.release_date.slice(0, 4)} )

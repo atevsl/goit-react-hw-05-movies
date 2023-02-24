@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import css from './SearchForm.module.css';
 
 const SearchForm = ({ onSubmitHendler }) => {
@@ -19,3 +20,7 @@ const SearchForm = ({ onSubmitHendler }) => {
   );
 };
 export default SearchForm;
+
+SearchForm.propTypes = {
+  onSubmitHendler: PropTypes.func.isRequired,
+};

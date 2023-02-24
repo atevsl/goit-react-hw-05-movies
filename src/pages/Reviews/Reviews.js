@@ -2,19 +2,35 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { onFetchReviews } from 'services/API';
 import css from './Reviews.module.css';
+import Spiner from 'components/Spiner/Spiner';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
   useEffect(() => {
-    onFetchReviews(movieId).then(({ data }) => {
-      setReviews(data.results);
-    });
+    setIsLoading(true);
+    const fetchReviews = async () => {
+      try {
+        const data = await onFetchReviews(movieId);
+        if (data === 0) {
+          return;
+        }
+        setReviews(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchReviews();
   }, [movieId]);
   return (
     <>
-      {' '}
-      {reviews.length === 0 && <div>Sorry, there are no reviews yet.</div>}
+      {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
+      {reviews.length === 0 && <b>Sorry, there are no reviews yet.</b>}
       <ul className={css.reviewList}>
         {reviews.map(item => {
           return (
