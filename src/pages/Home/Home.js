@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import css from './Home.module.css';
 import Spiner from 'components/Spiner/Spiner';
 import MovieList from 'components/MovieList/MovieList';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 const Home = () => {
   const [films, setfilms] = useState([]);
@@ -30,9 +31,9 @@ const Home = () => {
   return (
     <>
       {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
+      {error && <PageNotFound />}
       <h2 className={css.title}>Trending today:</h2>
       {films.length !== 0 && <MovieList moviesList={films} />}
-      {error && <>error need reload</>}
     </>
   );
 };
