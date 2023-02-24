@@ -42,9 +42,9 @@ const Movies = () => {
     <>
       <SearchForm onSubmitHendler={onSubmitHendler} />
       {isLoading && <Spiner wrapperStyle={{ fill: '#7b81ec' }} />}
-      <ul className={css.list}>
-        {searchMovies && <MovieList moviesList={searchMovies} />}
-      </ul>
+
+      {searchMovies && <MovieList moviesList={searchMovies} />}
+
       <Outlet />
     </>
   );
