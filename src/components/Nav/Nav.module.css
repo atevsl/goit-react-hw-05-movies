@@ -8,9 +8,15 @@
   border-radius: 20px;
   margin: 5px;
 }
-.nav.active {
+.navActive {
   color: #525a69;
   background-image: linear-gradient(90deg, #7b81ec, #3bd1d3);
+  padding: 20px 30px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  border-radius: 20px;
+  margin: 5px;
 }
 .nav:hover {
   color: #525a69;

@@ -3,10 +3,16 @@ import css from './Nav.module.css';
 const Nav = () => {
   return (
     <header>
-      <NavLink to="/" className={css.nav}>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? css.navActive : css.nav)}
+      >
         Home
       </NavLink>
-      <NavLink to="/movies" className={css.nav}>
+      <NavLink
+        to="/movies"
+        className={({ isActive }) => (isActive ? css.navActive : css.nav)}
+      >
         Movies
       </NavLink>
     </header>
